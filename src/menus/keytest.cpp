@@ -4,20 +4,12 @@
 #include <stdint.h>
 #include <string>
 #include <cstring>
-#include "../ui/ui.h"
+#include "../namespace/ui.h"
 
 void keytest() {
-	Point center = ui::center();
-
 	wint_t c = 0;
 	do {
-		auto v = key_name(c);
-		wchar_t w = L'0';
-		{
-			
-		}
-
-		ui::decotitle(1, COLOR_CYAN, L"Меню тестировки", 1);
+		ui::decotitle(1, COLOR_CYAN, L"Меню тесировки", 1);
 		ui::decotitle(
 			ui::size().h - 2,
 			COLOR_RED,
@@ -25,11 +17,10 @@ void keytest() {
 			1
 		);
 
-		
 		get_wch(&c);
 		
 		erase();
-	} while (c != 27) ;
+	} while (c != KEY_ESC) ;
 	
 	erase();
 }

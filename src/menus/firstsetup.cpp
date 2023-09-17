@@ -3,7 +3,7 @@
 #include <ncurses.h>
 #include <stdint.h>
 #include <string>
-#include "../ui/ui.h"
+#include "../namespace/ui.h"
 
 void firstsetup() {
 	Point center = ui::center();

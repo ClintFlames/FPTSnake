@@ -4,6 +4,9 @@
 #include <string>
 #include "../charmath.h"
 
+#define KEY_ESC 27
+#define KEY_EENTER 10
+
 namespace ui {
 	extern uint8_t pxw;
 	extern std::wstring px;

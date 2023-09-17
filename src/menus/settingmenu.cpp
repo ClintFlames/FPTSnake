@@ -3,9 +3,9 @@
 #include <ncurses.h>
 #include <string>
 #include <cstring>
-#include "../ui/ui.h"
+#include "../namespace/ui.h"
 
-void namesel(const uint8_t & vpid, PlayerSetting & stg) {
+void namesel(const uint8_t & vpid, stg::PlayerSetting & stg) {
 	Point center = ui::center();
 
 	ui::decotitle(1, COLOR_CYAN, L"Настройки | Имя | Игрок " + std::to_wstring(vpid), 69);
@@ -13,7 +13,7 @@ void namesel(const uint8_t & vpid, PlayerSetting & stg) {
 	ui::decotitle(ui::size().h - 2, COLOR_YELLOW, L"Длинна: 2 - 17 символов", 1);
 
 	std::wstring nname = ui::itextinput(
-		{ static_cast<int>(center.x) - 8 / ui::pxw, center.y },
+		{ static_cast<uint8_t>(center.x - 8 / ui::pxw), center.y },
 		stg.name,
 		2,
 		17,
@@ -25,7 +25,7 @@ void namesel(const uint8_t & vpid, PlayerSetting & stg) {
 	erase();
 }
 
-void colorsel(const uint8_t & vpid, PlayerSetting & stg) {
+void colorsel(const uint8_t & vpid, stg::PlayerSetting & stg) {
 	Point center = ui::center();
 
 	uint8_t c = 0;
@@ -69,10 +69,41 @@ void colorsel(const uint8_t & vpid, PlayerSetting & stg) {
 	erase();
 }
 
-// void keysel(const Direction &, const uint8_t &, PlayerSetting &);
+void keysel(const Direction & dir, const uint8_t & vpid, stg::PlayerSetting & stg) {
+	Point center = ui::center();
+	Size size = ui::size();
 
+	std::wstring ndir = L"";
+	switch (dir) {
+		case Up   : ndir = L"вверх" ; break;
+		case Down : ndir = L"вниз"  ; break;
+		case Right: ndir = L"вправо"; break;
+		case Left : ndir = L"влево" ; break;
+	}
 
-void playersel(const uint8_t pid, PlayerSetting * stg) {
+	ui::decotitle(1, COLOR_CYAN, L"Настройки | Клавиша " + ndir + L" | Игрок " + std::to_wstring(vpid), 69);
+
+	ui::title(size.h - 3, COLOR_YELLOW, L"Удостовертесь что раскладка на английском ");
+	ui::title(size.h - 2, COLOR_YELLOW, L"Выключите Caps Lock и включите Num Lock   ");
+	ui::decoframe(
+		{ static_cast<uint8_t>(center.x - (ui::pxw % 2 == 1 ? 1 : 2) - 21 / ui::pxw), static_cast<uint8_t>(size.h - 4) },
+		{ static_cast<uint8_t>((42 / ui::pxw) + (ui::pxw % 2 == 1 ? 2 : 3)), 4 }
+	);
+
+	int c = 0;
+
+	bool exit = false;
+	while (!exit && (c = getch()) != KEY_ESC) switch (dir) {
+		case Up   : stg.keyup    = c; exit = true; break;
+		case Down : stg.keydown  = c; exit = true; break;
+		case Right: stg.keyright = c; exit = true; break;
+		case Left : stg.keyleft  = c; exit = true; break;
+	}
+
+	erase();
+}
+
+void playersel(const uint8_t pid, stg::PlayerSetting * stg) {
 	Point center = ui::center();
 
 	uint8_t sel = 1;
@@ -146,16 +177,21 @@ void playersel(const uint8_t pid, PlayerSetting * stg) {
 	erase();
 
 	switch (sel) {
-		case 1:  namesel(pid + 1, stg[pid]); break;
-		case 2: colorsel(pid + 1, stg[pid]); break;
+		case 1:       namesel(pid + 1, stg[pid]); break;
+		case 2:      colorsel(pid + 1, stg[pid]); break;
+		case 3: keysel(Up   , pid + 1, stg[pid]); break;
+		case 4: keysel(Down , pid + 1, stg[pid]); break;
+		case 5: keysel(Right, pid + 1, stg[pid]); break;
+		case 6: keysel(Left , pid + 1, stg[pid]); break;
 		default:;
 	}
 
 	} while(sel != 0);
 }
 
-void settingmenu(PlayerSetting * stg) {
+void settingmenu(stg::PlayerSetting * stg) {
 	uint8_t c = 1;
+
 
 	do {
 		Point center = ui::center();

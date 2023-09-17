@@ -21,7 +21,7 @@ void ui::init(int errdelay) {
 	noecho();
 	// Отключаем мигание курсора
 	curs_set(0);
-	// Включает режим полу-задержки (выкидывает ERR после 10 секунд)
+	// Включает режим полу-задержки (выкидывает ERR после KEY_EENTER секунд)
 	halfdelay(errdelay);
 
 	// Убирает задержку клавише Escape
@@ -95,7 +95,7 @@ void ui::wdecotitle(WINDOW * win, const uint8_t & y, const uint8_t & color, cons
 	else rx = (rx - gap - 1) / ui::pxw;
 
 	if (gap == 69) w = ui::size().w;
-	else w = (text.length() / ui::pxw) + (text.length() % 2) + 2 + gap - 1;
+	else w = (text.length() / ui::pxw) + (text.length() % ui::pxw == 1 ? 0 : 1) + 2 + gap - 1;
 
 	ui::wdecoframe(
 		win,
@@ -204,14 +204,14 @@ uint8_t ui::wilist(WINDOW * win, const Point & p, const std::wstring & lsel, con
 	while (!exit) {
 		int c = getch();
 		switch (c) {
-			case 27: {
+			case KEY_ESC: {
 				if (ableExit) {
 					sel = 0;
 					exit = true;
 				}
 				break;
 			}
-			case 10: {
+			case KEY_EENTER: {
 				sel++;
 				exit = true;
 				break;
@@ -250,8 +250,8 @@ std::wstring ui::witextinput(WINDOW * win, const Point & p, const std::wstring &
 		int status = wget_wch(win, &inp);
 
 		switch (inp) {
-			case 27: if (ableExit) { exit = true; s = text; } break;
-			case 10: if (s.length() >= minlen && s.length() <= maxlen) { exit = true; } break;
+			case KEY_ESC: if (ableExit) { exit = true; s = text; } break;
+			case KEY_EENTER: if (s.length() >= minlen && s.length() <= maxlen) { exit = true; } break;
 			case KEY_BACKSPACE: if (s.length() != 0) {
 				if (pos == s.length()) {
 					s.pop_back();
