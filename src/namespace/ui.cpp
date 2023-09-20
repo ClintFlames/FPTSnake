@@ -95,7 +95,7 @@ void ui::wdecotitle(WINDOW * win, const uint8_t & y, const uint8_t & color, cons
 	else rx = (rx - gap - 1) / ui::pxw;
 
 	if (gap == 69) w = ui::size().w;
-	else w = (text.length() / ui::pxw) + (text.length() % ui::pxw == 1 ? 0 : 1) + 2 + gap - 1;
+	else w = (text.length() / ui::pxw) + 2 + gap;
 
 	ui::wdecoframe(
 		win,

@@ -7,7 +7,7 @@
 CXX = g++
 
 # define any compile-time flags
-CXXFLAGS	:= -std=c++17 -O1 -Wall -Wextra -g -lncursesw -Wold-style-cast
+CXXFLAGS	:= -std=c++17 -Wall -Wextra -g -lncursesw -Wold-style-cast -Wuninitialized -O4
 
 # define library paths in addition to /usr/lib
 #   if I wanted to include libraries not in /usr/lib I'd specify

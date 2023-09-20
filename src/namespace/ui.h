@@ -7,6 +7,8 @@
 #define KEY_ESC 27
 #define KEY_EENTER 10
 
+
+
 namespace ui {
 	extern uint8_t pxw;
 	extern std::wstring px;
@@ -59,5 +61,4 @@ namespace ui {
 
 	std::wstring  itextinput(          const Point &, const std::wstring &, const uint8_t &, const uint8_t &, bool);
 	std::wstring witextinput(WINDOW *, const Point &, const std::wstring &, const uint8_t &, const uint8_t &, bool);
-
 }

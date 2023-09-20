@@ -12,4 +12,6 @@ void keysel(const Direction &, const uint8_t &, stg::PlayerSetting &);
 
 void playersel(const uint8_t, stg::PlayerSetting *);
 
+void reset(stg::PlayerSetting * ps);
+
 void settingmenu(stg::PlayerSetting *);

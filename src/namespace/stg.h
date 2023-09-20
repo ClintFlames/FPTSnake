@@ -2,6 +2,9 @@
 
 #include <stdint.h>
 #include <string>
+#include <filesystem>
+
+
 
 namespace stg {
 	struct PlayerSetting {
@@ -13,9 +16,24 @@ namespace stg {
 		int keyleft;
 	};
 
+	extern uint8_t favmode;
+	extern std::string path;
+	extern uint16_t sign;
+
+	enum GameMode : bool { Standart, Effect };
+	enum WallMode : uint8_t { Box, RandomBox, Void, RandomVoid };
+
+	struct FavMode { GameMode gamemode; WallMode wallmode; };
+
 	void initdef(stg::PlayerSetting *);
 
-	void load(stg::PlayerSetting *);
+	bool exists();
+
+	bool load(stg::PlayerSetting *);
 
 	void save(stg::PlayerSetting *);
+
+	FavMode getfavmode(const uint8_t &);
+
+	void setfavmode(const uint8_t &, const FavMode &);
 }
