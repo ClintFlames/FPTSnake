@@ -37,6 +37,24 @@ uint8_t stg::favmode = 0;
 std::string stg::path = "";
 uint16_t stg::sign = 0b100111001;
 
+std::wstring stg::wsfavmode(const stg::FavMode & fm) {
+	std::wstring s = L"";
+	
+	switch (fm.gamemode) {
+		case stg::Standart: s += L"Стандартная "; break;
+		case stg::Effect  : s += L"Эффектная "  ; break;
+	}
+
+	switch (fm.wallmode) {
+		case stg::Box       : s += L"коробка"          ; break;
+		case stg::RandomBox : s += L"рандомная коробка"; break;
+		case stg::Void      : s += L"пустота"          ; break;
+		case stg::RandomVoid: s += L"рандомная пустота"; break;
+	}
+
+	return s;
+}
+
 void stg::initdef(stg::PlayerSetting * ps) {
 	ps[0] = { COLOR_BLUE   , L"Игрок 1", 'w'   , 's'     , 'd'      , 'a'      };
 	ps[1] = { COLOR_RED    , L"Игрок 2", 'i'   , 'k'     , 'l'      , 'j'      };
@@ -47,6 +65,7 @@ void stg::initdef(stg::PlayerSetting * ps) {
 }
 
 // TODO: Fix crashes/file length
+// TODO: check colors on load
 bool stg::load(stg::PlayerSetting * ps) {
 	// Reject if file not exists or if path is directory
 	if (!std::filesystem::exists(stg::path) || std::filesystem::is_directory(stg::path)) return false;

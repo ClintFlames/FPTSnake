@@ -54,7 +54,7 @@ void colorsel(const uint8_t & vpid, stg::PlayerSetting & ps) {
 		L" [ ",
 		L" ] ",
 		select,
-		6,
+		5,
 		c,
 		true
 	);
@@ -159,12 +159,12 @@ void playersel(const uint8_t pid, stg::PlayerSetting * ps) {
 	for (uint8_t i = 0; i < 6; i++) if (mlen > names[i].length()) names[i] + std::wstring(mlen - names[i].length(), ' ');
 	
 	ui::Label select[] = {
-		{ COLOR_WHITE   , names[0], 1 },
+		{ COLOR_WHITE  , names[0], 1 },
 		{ ps[pid].color, names[1], 1 },
-		{ COLOR_WHITE   , names[2], 1 },
-		{ COLOR_WHITE   , names[3], 1 },
-		{ COLOR_WHITE   , names[4], 1 },
-		{ COLOR_WHITE   , names[5], 1 }
+		{ COLOR_WHITE  , names[2], 1 },
+		{ COLOR_WHITE  , names[3], 1 },
+		{ COLOR_WHITE  , names[4], 1 },
+		{ COLOR_WHITE  , names[5], 1 }
 	};
 
 	sel = ui::ilist(
@@ -253,4 +253,6 @@ void settingmenu(stg::PlayerSetting * ps) {
 
 		if (c == 5) reset(); else if (c != 0) playersel(c - 1, ps);
 	} while (c);
+
+	stg::save(ps);
 }

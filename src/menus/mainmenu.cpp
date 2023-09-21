@@ -5,7 +5,7 @@
 #include <string>
 #include "../namespace/ui.h"
 
-uint8_t mainmenu() {
+uint8_t mainmenu(uint8_t c) {
 	Point center = ui::center();
 
 	ui::Label select[] = {
@@ -22,7 +22,7 @@ uint8_t mainmenu() {
 		L" ] ",
 		select,
 		3,
-		0,
+		c,
 		false
 	);
 

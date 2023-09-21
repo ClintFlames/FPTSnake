@@ -8,6 +8,7 @@
 #include "menus/firstsetup.h"
 #include "menus/mainmenu.h"
 #include "menus/settingmenu.h"
+#include "menus/selectgame.h"
 
 
 
@@ -46,18 +47,15 @@ int main() {
 		stg::save(ps);
 	}
 
+	uint8_t c = 1;
+
 	// Mainmenu loop
 	while (true) {
-		uint8_t code = mainmenu();
+		c = mainmenu(c - 1);
 		
-		if (code == 3) break;
+		if (c == 3) break;
 		
-		if (code == 1) {
-			// начать игру
-		} else {
-			settingmenu(ps);
-			stg::save(ps);
-		}
+		if (c == 1) selectgame(ps); else settingmenu(ps);
 	}
 
 	ui::close();

@@ -25,6 +25,8 @@ namespace stg {
 
 	struct FavMode { GameMode gamemode; WallMode wallmode; };
 
+	std::wstring wsfavmode(const stg::FavMode &);
+
 	void initdef(stg::PlayerSetting *);
 
 	bool exists();
