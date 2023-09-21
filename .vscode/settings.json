@@ -1,9 +1,6 @@
 {
 	"files.exclude": {
-		".git/": true,
-		"output/": true,
-		"**/**.d": true,
-		"**/**.o": true
+		".git/": true
 	},
 	"C_Cpp.intelliSenseCacheSize": 0
 }
